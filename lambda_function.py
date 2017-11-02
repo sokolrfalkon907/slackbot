@@ -46,7 +46,7 @@ from base64 import b64decode
 from urllib.parse import parse_qs
 
 
-ENCRYPTED_EXPECTED_TOKEN = os.environ['kmsEncryptedToken']
+ENCRYPTED_EXPECTED_TOKEN = os.environ['slackToken']
 
 kms = boto3.client('kms')
 expected_token = kms.decrypt(CiphertextBlob=b64decode(ENCRYPTED_EXPECTED_TOKEN))['Plaintext']
@@ -58,7 +58,7 @@ logger.setLevel(logging.INFO)
 def respond(err, res=None):
     return {
         'statusCode': '400' if err else '200',
-        'body': err.message if err else json.dumps(res),
+        'body': err.args[0] if err else json.dumps(res),
         'headers': {
             'Content-Type': 'application/json',
         },
@@ -78,4 +78,4 @@ def lambda_handler(event, context):
     command_text = params['text'][0]
 
     return respond(None, "%s invoked %s in %s with the following text: %s" % (user, command, channel, command_text))
-
+ 

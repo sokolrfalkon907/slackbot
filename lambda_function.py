@@ -68,7 +68,7 @@ def respond(err, res=None):
 def lambda_handler(event, context):
     params = parse_qs(event['body'])
     token = params['token'][0]
-    if token != expected_token:
+    if token != expected_token.decode('UTF-8'):
         logger.error("Request token (%s) does not match expected", token)
         return respond(Exception('Invalid request token'))
 

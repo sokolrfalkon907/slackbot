@@ -19,10 +19,13 @@ The user will use the `/echo` command to send a message to the bot.
 For example, when the user types `/echo hello`, the bot will parse the message
 "hello" and respond according to the following requirements.
 
+### Features
+All messages received should be matched regardless of upper or lower case.
+
 ### Messages and responses
-#### "Hello"
-If the user sends "Hello" to the bot, the bot will respond with "Hi there, how
-are you?"
+#### "Hello" "Hi" "Greetings" "Hey" "What's up" "Whats up"
+If the user sends any of the above messages respond with,
+> "Hi there, how are you?"
 
 #### "I'm fine"
 If the user sends "I'm fine" to the bot, the bot will respond with "That's
@@ -36,3 +39,7 @@ Hi, I am the EchoBot. You can send the following messages that I will understand
 "Hello"
 "I'm fine"
 ```
+
+### Coding guideline
+All messages and responses should be stored in variables in one place so they
+are easier to change later.

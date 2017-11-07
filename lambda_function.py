@@ -77,5 +77,12 @@ def lambda_handler(event, context):
     channel = params['channel_name'][0]
     command_text = params['text'][0]
 
+    # if message is "Hello"
+    #   respond with "Hi there, how are you?"
+    # else if message is  "I'm fine"
+    #   respond with ...
+    # else
+    #   respond with default message
+
     return respond(None, "%s invoked %s in %s with the following text: %s" % (user, command, channel, command_text))
  

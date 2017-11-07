@@ -4,3 +4,6 @@ local
 include
 pip-selfcheck.json
 *.zip
+*~
+*.sw[a-z]
+

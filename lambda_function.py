@@ -45,6 +45,7 @@ import os
 from base64 import b64decode
 from urllib.parse import parse_qs
 
+from run import run
 
 ENCRYPTED_EXPECTED_TOKEN = os.environ['slackToken']
 
@@ -53,16 +54,6 @@ expected_token = kms.decrypt(CiphertextBlob=b64decode(ENCRYPTED_EXPECTED_TOKEN))
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-
-
-def respond(err, res=None):
-    return {
-        'statusCode': '400' if err else '200',
-        'body': err.args[0] if err else res,
-        'headers': {
-            'Content-Type': 'application/json',
-        },
-    }
 
 
 def lambda_handler(event, context):
@@ -77,11 +68,4 @@ def lambda_handler(event, context):
     channel = params['channel_name'][0]
     command_text = params['text'][0]
 
-    response_string = 'Hi, I am the EchoBot. You can send the following messages that I will understand:\n"Hello"\n "I\'m fine"'
-
-    if command_text == "Hello":
-        response_string = "Hi there, how are you?"
-    elif command_text == "I'm fine":
-        response_string = "That's good, only fine?"
-
-    return respond(None, response_string)
+    return run(user, command, channel, command_text)
